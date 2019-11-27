@@ -1,19 +1,19 @@
 pragma solidity ^0.5.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-import "./Counters.sol"; 
+import "./Counters.sol";
 import "./Ownable.sol";
 
 
-contract RequestCity is Ownable, ERC721 {
+contract RequestCity is ERC721, ERC20 {
     
     using Counters for Counters.Counter;
     
     uint public requestPrice = 0.01 ether;
     
     Counters.Counter private tokenID;
-    uint tokenReward; 
     
+    uint tokenReward;
     ERC20 public ERC20Interface;
     address payable contractERC20;
     
@@ -24,7 +24,7 @@ contract RequestCity is Ownable, ERC721 {
         address payable applicant;
         string city;
         string requestAddress;
-        string description; 
+        string description;
         Priority priority;
         State state;
     }
@@ -38,12 +38,8 @@ contract RequestCity is Ownable, ERC721 {
     event NewRequest(uint requestID, address applicant, string ipfsHash, string city, string requestAddress);
     event AccidentalDeposit(address sender, uint value);
     event WithdrawEvent(address owner, uint value);
-    event StateUpdate();
+    event StateUpdate(uint requestID, uint newState);
     
-    ///FUNCTIONS
-    
-      ///https://medium.com/@jeancvllr/solidity-tutorial-all-about-enums-684adcc0b38e
-    ///https://github.com/cristiam86/chain-manager/blob/master/contracts/ChainManager.sol
     
     /// @author Jordi Guirao
     /// @notice create a new Request
@@ -52,69 +48,76 @@ contract RequestCity is Ownable, ERC721 {
     /// @param _requestAddress
     /// @param _description
     /// @param _priority rfgr
-    function createRequest(string memory _ipfsHash, string memory _city, string memory _requestAddress, string memory _description, Priority _priority) public payable  {
+    function createRequest(string memory _ipfsHash, string memory _city, string memory _requestAddress, string memory _description,
+    Priority _priority) public payable {
         require(msg.value >= requestPrice, "You need to pay more ether to create a request");
-        
         uint ID = tokenID.current();
         _mint(msg.sender, ID);
-        Request memory request = Request(ID, now, _ipfsHash, msg.sender, _city, _requestAddress, _description, _priority, State.requested );
+        Request memory request = Request(ID, now, _ipfsHash, msg.sender, _city, _requestAddress, _description, _priority, State.requested);
         requests[ID] = request;
         uint[] storage apliRequests = applicantRequests[msg.sender];
         apliRequests.push(ID);
         tokenID.increment();
-        
         emit NewRequest(ID, msg.sender, _ipfsHash, _city, _requestAddress);
     }
-    
-       
-     //https://ethereum.stackexchange.com/questions/65899/transfer-erc20-token-from-a-smart-contract
-     //https://ethereum.stackexchange.com/questions/74271/how-to-use-dai-in-my-contract
-     //https://github.com/makerdao/developerguides/blob/master/dai/dai-in-smart-contracts/README.md#write-your-code
-    function changeState(uint _requestID, State _state) public onlyOwner returns {
-        require(_state == 1 || _state == 2);
-        Request storage request = requests[_requestID];
-        request.state = _state; 
-        
-        if (request.state == 1) {
-           ERC20Interface(contractERC20).transfer(request.applicant, tokenReward)
-        } else 
-        
-    
-    }
-    
-     /// @author Jordi Guirao
+
+    /// @author Jordi Guirao
     /// @notice get request information
     /// @param request ID
     /// @return request details
     function getRequest(uint256 _requestID) external view returns(uint _id, uint _dateOfIssue, string memory _ipfsHash, address _applicant, string memory _city, string memory _requestAddress, string memory _description
     , Priority, State) {
         require(_exists(_requestID), "This request ID doe not exists");
-        
         Request storage request = requests[_requestID];
-        
         return (request.id, request.dateOfIssue, request.ipfsHash, request.applicant, request.city, request.requestAddress, request.description, request.priority, request.state);
     }
     
     /// @author Jordi Guirao
-    /// @notice get the number of requests made
-    /// @return number of requests
-   // function getNumberOfRequests() external view returns (uint){
-       // return balanceOf(msg.sender);
-   // }
-    
-    /// @author Jordi Guirao
-    /// @notice get all the request that a user has made. 
-    /// @return an array with the id of the requests that msg.sender has done. 
-    function getTeamPlayersIds() external view returns (uint[] memory){
+    /// @notice get all the request that a user has made.
+    /// @return an array with the id of the requests that msg.sender has done.
+    function getUserRequests() external view returns (uint[] memory){
         require(balanceOf(msg.sender) > 0, "msg.sender has not made any request");
         return applicantRequests[msg.sender];
-    } 
-    
+    }
+
+    /// @author Jordi Guirao
+    /// @notice get the number of requests made by msg.sender
+    /// @return number of requests
+    function getNumberOfRequests() external view returns (uint){
+        return balanceOf(msg.sender);
+    }
+
+    /// @author Jordi Guirao
+    /// @notice change the request state to solve denied. Only onlyOwners can do it
+    /// @param _requestID id of the request
+    /// @return new request state
+    function denyRequest(uint _requestID) public onlyOwner returns (uint) {
+        require(requests[_requestID].state == 0, "The request state is not'requested'");
+        Request storage request = requests[_requestID];
+        request.state = 2;
+        emit StateUpdate(_requestID, request.state);
+        return request.state;
+    }
+
+    /// @author Jordi Guirao
+    /// @notice change the request state to solved. Only onlyOwners can do it
+    /// @param _requestID id of the request
+    /// @return new request state
+     function solveRequest(uint _requestID) public onlyOwner returns (uint) {
+        require(requests[_requestID].state == 0, "The request state is not'requested'");
+        Request storage request = requests[_requestID];
+        request.state = 1;
+        //ERC20Interface(contractERC20).transfer(request.applicant, tokenReward);
+        mintToken(request.applicant, tokenReward);
+        emit StateUpdate(_requestID, request.state);
+        return request.state;
+    }
+
     
     /// @author Jordi Guirao
     /// @notice change the requestPrice
-    /// @param new request price in wei
-    /// @return Price of the request
+    /// @param _newprice new request price in wei
+    /// @return Updated price of the request
     function setRequestPrice (uint _newprice) public onlyOwner returns (uint) {
         requestPrice = _newprice * 1 ether;
         return requestPrice;
@@ -122,7 +125,7 @@ contract RequestCity is Ownable, ERC721 {
     
      /// @author Jordi Guirao
     /// @notice change the token address
-    /// @param new token address
+    /// @param _newAddress token address
     /// @return new address
     function setTokenAddress (uint _newAddress) public onlyOwner returns (address) {
         contractERC20 = _newAddress;
@@ -131,7 +134,7 @@ contract RequestCity is Ownable, ERC721 {
     
     /// @author Jordi Guirao
     /// @notice obtain the balance of the contract address
-    /// @return contract's balance
+    /// @return contracts balance
     function contractBalance() external view onlyOwner returns(uint) {
         return address(this).balance;
     }
@@ -144,7 +147,6 @@ contract RequestCity is Ownable, ERC721 {
         emit WithdrawEvent(owner, address(this).balance);
     }
     
-   
      ///@author Jordi Guirao
      ///@dev Fallback function allows to deposit ether.
     function() external payable {
@@ -152,6 +154,4 @@ contract RequestCity is Ownable, ERC721 {
             emit AccidentalDeposit(msg.sender, msg.value);
 	    }
     }
-    
-  
 }
