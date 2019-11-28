@@ -1,11 +1,13 @@
 pragma solidity ^0.5.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-import "./Counters.sol";
-import "./Ownable.sol";
+import "./ERC20CYT.sol";
+import "../node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol";
 
-
-contract RequestCity is ERC721, ERC20 {
+/// @title A dapp for create reques
+/// @author Jordi Guirao
+/// @notice Dapp to create requests to a city council, for example. If the requests are solved, the user will earn token
+contract RequestCity is ERC721, ERC20CYT(1) {
     
     using Counters for Counters.Counter;
     
@@ -13,10 +15,8 @@ contract RequestCity is ERC721, ERC20 {
     
     Counters.Counter private tokenID;
     
-    uint tokenReward;
-    ERC20 public ERC20Interface;
-    address payable contractERC20;
-    
+    uint tokenReward = 10;
+   
     struct Request {
         uint id;
         uint dateOfIssue;
@@ -38,16 +38,15 @@ contract RequestCity is ERC721, ERC20 {
     event NewRequest(uint requestID, address applicant, string ipfsHash, string city, string requestAddress);
     event AccidentalDeposit(address sender, uint value);
     event WithdrawEvent(address owner, uint value);
-    event StateUpdate(uint requestID, uint newState);
-    
+    event StateUpdate(uint requestID, State state);
     
     /// @author Jordi Guirao
     /// @notice create a new Request
-    /// @param _ipfsHash
-    /// @param _city
-    /// @param _requestAddress
-    /// @param _description
-    /// @param _priority rfgr
+    /// @param _ipfsHash ipsfhash of the image
+    /// @param _city Nambe of the city
+    /// @param _requestAddress Address where is the event found
+    /// @param _description Description of the request
+    /// @param _priority Priority that need the request to be solved
     function createRequest(string memory _ipfsHash, string memory _city, string memory _requestAddress, string memory _description,
     Priority _priority) public payable {
         require(msg.value >= requestPrice, "You need to pay more ether to create a request");
@@ -63,7 +62,7 @@ contract RequestCity is ERC721, ERC20 {
 
     /// @author Jordi Guirao
     /// @notice get request information
-    /// @param request ID
+    /// @param _requestID ID of the request
     /// @return request details
     function getRequest(uint256 _requestID) external view returns(uint _id, uint _dateOfIssue, string memory _ipfsHash, address _applicant, string memory _city, string memory _requestAddress, string memory _description
     , Priority, State) {
@@ -91,10 +90,10 @@ contract RequestCity is ERC721, ERC20 {
     /// @notice change the request state to solve denied. Only onlyOwners can do it
     /// @param _requestID id of the request
     /// @return new request state
-    function denyRequest(uint _requestID) public onlyOwner returns (uint) {
-        require(requests[_requestID].state == 0, "The request state is not'requested'");
+    function denyRequest(uint _requestID) public onlyOwner returns (State) {
+        require(requests[_requestID].state == State.requested, "The request state is not'requested'");
         Request storage request = requests[_requestID];
-        request.state = 2;
+        request.state = State.denied;
         emit StateUpdate(_requestID, request.state);
         return request.state;
     }
@@ -103,10 +102,10 @@ contract RequestCity is ERC721, ERC20 {
     /// @notice change the request state to solved. Only onlyOwners can do it
     /// @param _requestID id of the request
     /// @return new request state
-     function solveRequest(uint _requestID) public onlyOwner returns (uint) {
-        require(requests[_requestID].state == 0, "The request state is not'requested'");
+     function solveRequest(uint _requestID) public onlyOwner returns (State) {
+        require(requests[_requestID].state == State.requested, "The request state is not'requested'");
         Request storage request = requests[_requestID];
-        request.state = 1;
+        request.state = State.solved;
         //ERC20Interface(contractERC20).transfer(request.applicant, tokenReward);
         mintToken(request.applicant, tokenReward);
         emit StateUpdate(_requestID, request.state);
@@ -122,14 +121,14 @@ contract RequestCity is ERC721, ERC20 {
         requestPrice = _newprice * 1 ether;
         return requestPrice;
     }
-    
-     /// @author Jordi Guirao
-    /// @notice change the token address
-    /// @param _newAddress token address
-    /// @return new address
-    function setTokenAddress (uint _newAddress) public onlyOwner returns (address) {
-        contractERC20 = _newAddress;
-        return contractERC20;
+
+    /// @author Jordi Guirao
+    /// @notice change the tokenReward
+    /// @param _newTokenReward new request price in wei
+    /// @return Updated price of the request
+    function setTokenReward (uint _newTokenReward) public onlyOwner returns (uint) {
+        tokenReward = _newTokenReward;
+        return tokenReward;
     }
     
     /// @author Jordi Guirao
