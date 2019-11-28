@@ -1,0 +1,29 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "ConsenSys Academy’s 2019 Developer Bootcamp Final Project",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "openzeppelin-solidity": "^2.4.0",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordiguirao92/FinalProject_ConsenSysAcademy2019_DeveloperBootcamp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordiguirao92/FinalProject_ConsenSysAcademy2019_DeveloperBootcamp/issues"
+  },
+  "homepage": "https://github.com/jordiguirao92/FinalProject_ConsenSysAcademy2019_DeveloperBootcamp#readme"
+}
