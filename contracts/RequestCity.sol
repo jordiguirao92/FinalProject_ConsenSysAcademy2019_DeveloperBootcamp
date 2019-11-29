@@ -106,7 +106,6 @@ contract RequestCity is ERC721, ERC20CYT(1) {
         require(requests[_requestID].state == State.requested, "The request state is not'requested'");
         Request storage request = requests[_requestID];
         request.state = State.solved;
-        //ERC20Interface(contractERC20).transfer(request.applicant, tokenReward);
         mintToken(request.applicant, tokenReward);
         emit StateUpdate(_requestID, request.state);
         return request.state;
