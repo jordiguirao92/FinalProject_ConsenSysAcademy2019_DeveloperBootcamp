@@ -1,0 +1,162 @@
+.container {
+  padding-bottom: 30px;
+}
+
+.body {
+  padding-right: 0px;
+  background-color: #48a4e2;
+}
+
+.heading {
+  font-family: Ubuntu, Helvetica, sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+.paragraph {
+  color: #fff;
+  text-align: justify;
+}
+
+.form {
+  padding-right: 200px;
+  padding-left: 200px;
+}
+
+.text-field {
+  padding-right: 220px;
+}
+
+.form-2 {
+  padding-right: 800px;
+  padding-left: 200px;
+  border-radius: 0px;
+}
+
+.div-block {
+  padding-left: 25px;
+}
+
+.div-block-2 {
+  padding-left: 25px;
+}
+
+.field-label {
+  width: 80px;
+  padding-right: 0px;
+}
+
+.div-block-3 {
+  margin-bottom: 0px;
+  padding-bottom: 16px;
+  padding-left: 25px;
+  background-color: #fff;
+}
+
+.div-block-4 {
+  padding-left: 25px;
+}
+
+.div-block-5 {
+  width: 500px;
+  padding-right: 220px;
+}
+
+.button {
+  width: 75px;
+  height: auto;
+  margin-right: 52px;
+  padding-right: 15px;
+  background-color: #26bd56;
+}
+
+.button-2 {
+  width: 75px;
+  background-color: #ca2d30;
+  text-align: center;
+}
+
+.div-block-6 {
+  width: 400px;
+  height: 80px;
+  margin-right: 0px;
+  margin-left: 320px;
+  padding-right: 0px;
+  padding-left: 0px;
+  border-radius: 20px;
+  background-color: #48a4e2;
+  text-align: center;
+}
+
+.heading-2 {
+  width: 500px;
+  padding-right: 220px;
+}
+
+.heading-3 {
+  width: 500px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-right: 0px;
+}
+
+.div-block-7 {
+  width: auto;
+  margin-left: 0px;
+}
+
+.div-block-8 {
+  margin: 0px auto 0px 0px;
+  padding-top: 0px;
+  padding-left: 0px;
+  text-align: left;
+}
+
+.heading-4 {
+  width: 500px;
+}
+
+.heading-5 {
+  width: 500px;
+}
+
+.heading-6 {
+  width: 500px;
+}
+
+.heading-7 {
+  width: 500px;
+}
+
+.heading-8 {
+  width: 500px;
+}
+
+.heading-9 {
+  width: 500px;
+}
+
+.heading-10 {
+  width: 500px;
+}
+
+.heading-11 {
+  background-color: transparent;
+}
+
+.heading-12 {
+  margin-left: -25px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.columns {
+  background-color: #fff;
+}
+
+@media (max-width: 991px) {
+  .div-block-4 {
+    padding-left: 25px;
+  }
+}

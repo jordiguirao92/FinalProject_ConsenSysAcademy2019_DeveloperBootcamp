@@ -109,7 +109,7 @@ contract ('RequestCity', function(accounts){
         await catchRevert(requestCity.solveRequest(0, {from: accounts[1]}));
         
         await requestCity.solveRequest(0, {from: accounts[0]});
-        const balacenToken = await requestCity.balanceOfToken.call(accounts[1])
+        const balacenToken = await requestCity.balanceOfToken.call(accounts[1]);
         assert.equal(balacenToken, 10, "The balance is not equal to the token reward");
 
         const requestIDdata0 = await requestCity.requests.call(0);

@@ -13,7 +13,7 @@ contract RequestCity is ERC721, ERC20CYT(1) {
     
     uint public requestPrice = 0.01 ether;
     
-    Counters.Counter private tokenID;
+    Counters.Counter public tokenID;
     
     uint tokenReward = 10;
    
