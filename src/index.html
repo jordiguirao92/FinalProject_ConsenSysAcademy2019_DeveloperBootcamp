@@ -33,10 +33,11 @@
         <input type="checkbox" name="prior" class="check" value="1" id="medium"> Medium
         <input type="checkbox" name="prior" class="check" value="2" id="low"> Low </label>
         <label for="city">Choose file to send to IPFS</label><input type="text" class="w-input" name="ipfs" data-name="IPFS" id="ipfs">
-        <h5>IPFS HASH:</h5> <h5 id = "ipfsHash" >frefrfrtgtgtgt</h5>
-        <h5>Request price:</h5> <h5 id = "ethprice" >0.01 ETH</h5>
+        <h5>IPFS HASH:</h5><h5 id = "ipfsHash" >hashipfs </h5>
+        <h5>Request price:</h5><h5 id = "ethprice" >0.01 ETH</h5>
         <h5 id = "ethaddress" ></h5>
-        <input type="submit" value="Submit" data-wait="Please wait..." class="w-button">
+        <button type="button" onclick= "App.createRequest()" class="button w-button">Create</button>
+        <!--<input type="submit" value="Submit" data-wait="Please wait..." class="w-button">-->
       </form>
       <div class="w-form-done">
         <div>Thank you! Your submission has been received!</div>
@@ -94,12 +95,15 @@
       </div>
     </div>
     <div class="div-block-6">
-      <h4>Change state (only for city admins)</h4><a href="#" class="button w-button">Solved</a><a href="#" class="button-2 w-button">Deny</a></div>
+      <h4>Change state (only for city admins)</h4>
+      <button type="button" onclick= "App.solveRequest()" class="button w-button">Solved</button>
+      <button type="button" onclick= "App.denyRequest()" class="button-2 w-button">Deny</button>
+      </div>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/app.js" type="text/javascript"></script>
-  <script src="js/web3.min.js"></script>
-  <script src="js/truffle-contract.js"></script> 
+  <script type="text/javascript" src="js/web3.min.js"></script>
+  <script type="text/javascript" src="js/truffle-contract.js"></script> 
+  <script type="text/javascript" src="js/app.js"></script>
 
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->

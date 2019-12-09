@@ -51,7 +51,7 @@ contract RequestCity is ERC721, ERC20CYT(1) {
     Priority _priority) public payable {
         require(msg.value >= requestPrice, "You need to pay more ether to create a request");
         uint ID = tokenID.current();
-        _mint(msg.sender, ID);
+        _mint(msg.sender, tokenReward);
         Request memory request = Request(ID, now, _ipfsHash, msg.sender, _city, _requestAddress, _description, _priority, State.requested);
         requests[ID] = request;
         uint[] storage apliRequests = applicantRequests[msg.sender];
