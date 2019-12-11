@@ -72,7 +72,7 @@ App = {
         console.log(weiRequestPrice);
         console.log(instance);
         console.log(account);
-        await instance.createRequest($("#ipfs").val(), $("#city").val(), $("#requestAddress").val(), 
+        await instance.createRequest(($("#ipfsHash").text()).toString(), $("#city").val(), $("#requestAddress").val(), 
         $("#description").val(), parseInt($( "input:checked" ).val()), {from: account, value: weiRequestPrice });
         console.log("Request Created");
       } catch(err) {
@@ -144,6 +144,8 @@ App = {
         $("#citizenRequests").html("Citizen requests: " + userRequests);
         $("#cytBalance").html("Balance of CYT: " + cytToken);
 
+        AppIpfs.getFile(requestDetails[2]);
+
       } catch (err) {
         console.log("Error =>", err);
       }
@@ -157,6 +159,7 @@ App = {
         let requestSolve = await instance.solveRequest(requestID, {from: account});
         console.log(requestSolve);
         alert("The request" +" "+ requestID +" "+ "is solved");
+        this.checkRequest();
 
       } catch (err) {
         console.log("Error =>", err);
@@ -171,6 +174,7 @@ App = {
         let requestDeny = await instance.denyRequest(requestID, {from: account});
         console.log(requestDeny);
         alert("The request" +" "+ requestID +" "+ "is denied");
+        this.checkRequest();
 
       }catch (err){
         console.log("Error =>", err);

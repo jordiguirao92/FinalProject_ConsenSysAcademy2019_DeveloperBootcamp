@@ -1,14 +1,17 @@
 {
   "name": "dev",
   "version": "1.0.0",
-  "description": "ConsenSys Academy’s 2019 Developer Bootcamp Final Project",
+  "description": "IPFS Prueba",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
     "@truffle/contract": "^4.1.1",
+    "browserify": "^16.5.0",
+    "buffer": "^5.4.3",
     "fs-extra": "^8.1.0",
+    "ipfs-http-client": "^40.0.1",
     "openzeppelin-solidity": "^2.4.0",
     "truffle": "^5.1.3",
     "truffle-hdwallet-provider": "^1.0.17",

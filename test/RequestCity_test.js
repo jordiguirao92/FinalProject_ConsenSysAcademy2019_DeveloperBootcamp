@@ -11,7 +11,7 @@ contract ('RequestCity', function(accounts){
     let weiRequestPrice = Web3.utils.toWei('0.01', 'ether');
     const request1 = {
         ipfsHash: "abcdefg", 
-        city: "Barcelona",
+        city: "Barcelon",
         address: "Major Street 60",
         description: "shabby container",
         priority: 0
