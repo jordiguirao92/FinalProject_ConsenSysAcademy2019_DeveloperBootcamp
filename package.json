@@ -1,7 +1,7 @@
 {
   "name": "dev",
   "version": "1.0.0",
-  "description": "IPFS Prueba",
+  "description": "FinalProject_ConsenSysAcademy2019_DeveloperBootcamp",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
