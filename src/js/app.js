@@ -72,7 +72,7 @@ App = {
         console.log(weiRequestPrice);
         console.log(instance);
         console.log(account);
-        await instance.createRequest(($("#ipfsHash").text()).toString(), $("#city").val(), $("#requestAddress").val(), 
+        await instance.createRequest($("#ipfsHash").text(), $("#city").val(), $("#requestAddress").val(), 
         $("#description").val(), parseInt($( "input:checked" ).val()), {from: account, value: weiRequestPrice });
         console.log("Request Created");
       } catch(err) {
