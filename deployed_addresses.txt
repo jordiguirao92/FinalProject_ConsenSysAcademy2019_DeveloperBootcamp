@@ -1,2 +1,15 @@
+BASIC DEPLOYED SMART CONTRACT INFORMATION:
 Testnet: Rinkeby
-Smart contract address: 
+Smart contract address: 0xe2C2Ea11185722ED72A89fF163253087E9D2b0d6
+Etherscan URL: https://rinkeby.etherscan.io/address/0xe2c2ea11185722ed72a89ff163253087e9d2b0d6 
+
+
+ADDITIONAL DAPP INFORMATION:
+Owner Rinkeby Address: 0x345503ce4b472ce35186aa87a9c6e600c94bcf71
+Etherscan URL: https://rinkeby.etherscan.io/address/0x345503ce4b472ce35186aa87a9c6e600c94bcf71
+
+dApp user address: 0x783C23Ec724ddD5e38b4356f0E509c1C304Cbfe7
+Etherscan URL: https://rinkeby.etherscan.io/address/0x783c23ec724ddd5e38b4356f0e509c1c304cbfe7 
+
+CityToken address: 
+Etherscan URL: https://rinkeby.etherscan.io/token/0xe2c2ea11185722ed72a89ff163253087e9d2b0d6

@@ -2,9 +2,9 @@ pragma solidity ^0.5.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 import "./ERC20CYT.sol";
-import "../node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol"; 
+import "../node_modules/openzeppelin-solidity/contracts/drafts/Counters.sol";
 
-/// @title A dapp for create reques
+/// @title A dapp for create request
 /// @author Jordi Guirao
 /// @notice Dapp to create requests to a city council, for example. If the requests are solved, the user will earn token
 contract RequestCity is ERC721, ERC20CYT(1) {
