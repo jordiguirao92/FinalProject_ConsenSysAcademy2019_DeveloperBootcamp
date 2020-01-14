@@ -9,9 +9,9 @@ CITYBetter is a dApp where citizens can create a request to improve the city env
 2. Go to the project root folder and install dependencies using `npm install`.
 3. Start Ganache and copy the "mnemonic" words. 
 4. Go to the "truffle-config.js" file and paste the "mnemonic" words in the `const mnemonic = "paste here"`.
-5. Import the first ganache account to your metamask. Important: You will need some ether in that account. You cant get it in the Rinkeby Faucet https://faucet.rinkeby.io/.
+5. Import the first Ganache account to your Metamask. Important: You will need some ether in that account. You cant get it in the Rinkeby Faucet https://faucet.rinkeby.io/.
 6. Test the smart contract: In order to test the contract go to the root folder of the project and execute `truffle test`. Check that the 7 tests pass successful. 
-7. In the root folder of the project execute `truffle migrate --network rinkeby`. Remember: If the contract has been migrated you will need to execute `truffle migrate  --reset --network rinkeby`.
+7. In the root folder of the project execute `truffle migrate --network rinkeby`. Remember: If the contract has been migrated you will need to execute `truffle migrate  --reset --network rinkeby`. In order to deploy contracts in a local network you can use `truffle migrate --network development`.
 8. Go to the root folder of the project and execute `npm run dev`.
 9. Start to interact with CITYBetter.
 
