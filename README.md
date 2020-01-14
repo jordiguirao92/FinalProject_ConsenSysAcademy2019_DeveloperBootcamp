@@ -29,7 +29,7 @@ In order to create a request you have to provide some information:
 You can get all your requests IDs clicking the button "Click me!". It will provide the ID of the requests that you have created. 
 
 ## How can I check my request?
-In order to check your request details, write your request ID inside the "Request ID" input, after that click the button "Check details". After that your can find all the information about the request. This information comes from the smart contract. You cand find the state of your request, the balance of token that have the person who has create this request, your can check the IPFS image that the request creator uploaded...
+In order to check your request details, write your request ID inside the "Request ID" input, after that click the button "Check details". After that your can find all the information about the request. This information comes from the smart contract. You cand find the state of your request, the balance of token that have the person who has create this request, you can check the IPFS image that the request creator uploaded...
 
 ## Can I solve or deny a request?
 Only the owners/admin team can deny or solve a request. If the request is solved, the requests creator will receive CYT. In case the request is denied the request creator will not receive CYT. 
