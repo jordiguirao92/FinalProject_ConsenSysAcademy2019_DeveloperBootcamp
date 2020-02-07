@@ -144,7 +144,7 @@ App = {
         $("#citizenRequests").html("Citizen requests: " + userRequests);
         $("#cytBalance").html("Balance of CYT: " + cytToken);
 
-        AppIpfs.getFile(requestDetails[2]);
+        AppIpfs.getFile(requestDetails[2]);    
 
       } catch (err) {
         console.log("Error =>", err);
